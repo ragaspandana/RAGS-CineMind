@@ -1,0 +1,17 @@
+# Render.com blueprint (optional alternative host).
+# NOTE: on Render's free plan the SQLite database is wiped whenever the app
+# restarts or sleeps (after 15 min idle). Fine for a demo, not for keeping accounts.
+services:
+  - type: web
+    name: rags-cinemind
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --workers 1 --threads 4 --timeout 120
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: PYTHON_VERSION
+        value: "3.11.9"
