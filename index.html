@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAGS CineMind</title>
+  <meta name="description" content="Movie recommendations based on how you want to feel, who is watching, and what you like.">
+  <link rel="preload" href="fonts/BricolageGrotesque.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23C9A25E'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23120E0B'/%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- the "light" behind everything; its colour follows the chosen feeling -->
+  <div class="room-light" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a href="#/" class="brand" aria-label="RAGS CineMind home">
+      <span class="brand-lens" aria-hidden="true"></span>
+      <span class="brand-name">RAGS <b>CineMind</b></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/discover" data-nav="discover">Discover</a>
+      <a href="#/search" data-nav="search">Search</a>
+      <a href="#/me" data-nav="me" class="needs-auth">My movies</a>
+      <a href="#/about" data-nav="about">How it works</a>
+    </nav>
+    <div class="account" id="account"></div>
+  </header>
+
+  <main id="view" tabindex="-1"></main>
+
+  <footer class="footer">
+    <p>RAGS CineMind, a college mini project on personalised movie recommendation.</p>
+    <p class="attribution">
+      Movie data and images from <a href="https://www.themoviedb.org" target="_blank" rel="noopener">TMDB</a>.
+      This product uses the TMDB API but is not endorsed or certified by TMDB.
+      Rating data from <a href="https://grouplens.org/datasets/movielens/" target="_blank" rel="noopener">MovieLens</a> (GroupLens Research). Where-to-watch data by <a href="https://www.justwatch.com" target="_blank" rel="noopener">JustWatch</a>.
+    </p>
+  </footer>
+
+  <!-- movie details sheet -->
+  <dialog class="sheet" id="movieSheet" aria-label="Movie details"></dialog>
+  <!-- login / register -->
+  <dialog class="auth-dialog" id="authDialog" aria-label="Log in or create an account"></dialog>
+  <!-- RAGS Genie: chat assistant (button + panel, on every page) -->
+  <button class="genie-fab" id="genieFab" aria-expanded="false" aria-controls="geniePanel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/><path d="M5 15l.6 1.4L7 17l-1.4.6L5 19l-.6-1.4L3 17l1.4-.6z"/></svg>
+    <span>Ask RAGS Genie</span>
+  </button>
+  <section class="genie" id="geniePanel" hidden aria-label="RAGS Genie chat">
+    <header class="genie-head">
+      <div><strong>RAGS Genie</strong><span class="genie-brain" id="genieBrain">Built-in brain</span></div>
+      <button class="genie-icon" id="genieExpand" title="Full screen" aria-label="Open the chat full screen">&#10530;</button>
+      <button class="genie-icon" id="genieReset" title="Start over" aria-label="Start a new chat">&#8635;</button>
+      <button class="genie-icon" id="genieClose" title="Close" aria-label="Close chat">&times;</button>
+    </header>
+    <div class="genie-log" id="genieLog" aria-live="polite"></div>
+    <div class="genie-chips" id="genieChips"></div>
+    <form class="genie-input" id="genieForm">
+      <input id="genieInput" type="text" maxlength="300" autocomplete="off" placeholder="Tell me what you feel like watching" aria-label="Message RAGS Genie">
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+
+  <!-- toasts -->
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
